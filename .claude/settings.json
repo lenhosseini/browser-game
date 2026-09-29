@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -n \"$CLAUDE_ENV_FILE\" ] && echo \". \\\"$CLAUDE_PROJECT_DIR/scripts/env.sh\\\"\" >> \"$CLAUDE_ENV_FILE\"; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}
