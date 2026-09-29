@@ -17,6 +17,9 @@ dist-ssr
 .env.*
 !.env.example
 
+# SpacetimeDB CLI personal overrides
+spacetime.local.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/settings.json

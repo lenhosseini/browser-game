@@ -25,9 +25,14 @@ vp run ready          # the pre-merge gate: check, test, build
 ## Local dev loop
 
 ```sh
-vp run dev            # local SpacetimeDB + module publish + bindings + client dev server
+vp run dev
 ```
 
-This starts SpacetimeDB on `127.0.0.1:3000`, publishes the module as the `browser-game` database, regenerates the bindings, and serves the client on <http://localhost:5173>. Ctrl+C stops everything.
+This runs two tasks side by side:
 
-The pieces also run separately: `vp run stdb:start`, `vp run stdb:publish`, `vp run stdb:generate`, and `vp run @game/client#dev`. After changing the module's tables or reducers, run `vp run stdb:publish` then `vp run stdb:generate` (or restart `vp run dev`).
+- `@game/server#dev`: a local SpacetimeDB server on `127.0.0.1:3000`.
+- `@game/client#dev`: `spacetime dev`, which builds and publishes the module as the `browser-game` database, regenerates the bindings, starts the client dev server (<http://localhost:5173>, the `@game/client#serve` task), and then watches `apps/server` to rebuild, republish and regenerate on every change.
+
+Ctrl+C stops everything. `spacetime dev` does not start a server itself; it relies on the module build taking longer than the server takes to come up. If it ever fails with "connection refused", run `vp run dev` again.
+
+`spacetime.json` configures `spacetime dev`; `spacetime.local.json` (gitignored) is written by it. One-off commands are also available: `vp run stdb:publish` and `vp run stdb:generate`.
