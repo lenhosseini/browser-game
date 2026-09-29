@@ -1,6 +1,7 @@
 import { defineConfig } from "vite-plus";
 
 const generated = ["packages/bindings/src/**", "**/dist/**"];
+const startServer = "spacetime start --listen-addr 127.0.0.1:3000";
 const vendored = [".agents/**", ".claude/**", "skills-lock.json"];
 
 export default defineConfig({
@@ -28,8 +29,20 @@ export default defineConfig({
   test: { projects: ["apps/*", "packages/*"] },
   run: {
     tasks: {
-      dev: { command: 'vp run --parallel --log labeled --filter "./apps/*" dev', cache: false },
+      dev: {
+        command: `${startServer} & server=$!; trap 'kill $server 2>/dev/null' EXIT; spacetime dev --yes`,
+        cache: false,
+      },
       ready: { command: "vp check && vp run -r test && vp run -r build" },
+      "stdb:start": { command: startServer, cache: false },
+      "stdb:publish": { command: "spacetime publish --yes", cache: false },
+      "stdb:generate": {
+        command: "spacetime generate",
+        cache: {
+          input: [{ auto: true }, "!apps/server/dist/**"],
+          output: ["packages/bindings/src/**"],
+        },
+      },
     },
   },
 });

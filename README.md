@@ -28,11 +28,8 @@ vp run ready          # the pre-merge gate: check, test, build
 vp run dev
 ```
 
-This runs two tasks side by side:
+This starts a local SpacetimeDB server on `127.0.0.1:3000` and runs `spacetime dev` next to it. `spacetime dev` builds and publishes the module as the `browser-game` database, regenerates the bindings, starts the client dev server (<http://localhost:5173>, the `@game/client#dev` task), and then watches `apps/server` to rebuild, republish and regenerate on every change. Ctrl+C stops everything.
 
-- `@game/server#dev`: a local SpacetimeDB server on `127.0.0.1:3000`.
-- `@game/client#dev`: `spacetime dev`, which builds and publishes the module as the `browser-game` database, regenerates the bindings, starts the client dev server (<http://localhost:5173>, the `@game/client#serve` task), and then watches `apps/server` to rebuild, republish and regenerate on every change.
+`spacetime dev` does not start a server itself; it relies on the module build taking longer than the server takes to come up. If it ever fails with "connection refused", run `vp run dev` again.
 
-Ctrl+C stops everything. `spacetime dev` does not start a server itself; it relies on the module build taking longer than the server takes to come up. If it ever fails with "connection refused", run `vp run dev` again.
-
-`spacetime.json` configures `spacetime dev`; `spacetime.local.json` (gitignored) is written by it. One-off commands are also available: `vp run stdb:publish` and `vp run stdb:generate`.
+All SpacetimeDB tasks live in the root `vite.config.ts`, and `spacetime.json` configures the CLI (`spacetime.local.json` is gitignored and written by `spacetime dev`). One-off tasks: `vp run stdb:start`, `vp run stdb:publish` and `vp run stdb:generate`.
