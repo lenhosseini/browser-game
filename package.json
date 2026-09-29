@@ -1,0 +1,27 @@
+{
+  "name": "browser-game",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp -C apps/client dev",
+    "ready": "vp check && vp run -r test && vp run -r build",
+    "stdb:start": "vp run @game/server#stdb:start",
+    "stdb:publish": "vp run @game/server#stdb:publish",
+    "stdb:generate": "vp run @game/server#stdb:generate",
+    "prepare": "vp config"
+  },
+  "devDependencies": {
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.6.0",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}
