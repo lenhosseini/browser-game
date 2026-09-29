@@ -28,7 +28,7 @@ export default defineConfig({
   test: { projects: ["apps/*", "packages/*"] },
   run: {
     tasks: {
-      dev: { command: "vp run @game/client#dev", cache: false },
+      dev: { command: 'vp run --parallel --log labeled --filter "./apps/*" dev', cache: false },
       ready: { command: "vp check && vp run -r test && vp run -r build" },
       "stdb:start": { command: "vp run @game/server#stdb:start", cache: false },
       "stdb:publish": { command: "vp run @game/server#stdb:publish", cache: false },
