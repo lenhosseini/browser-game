@@ -33,6 +33,10 @@ export default defineConfig({
         command: `${startServer} & server=$!; trap 'kill $server 2>/dev/null' EXIT; spacetime dev --yes`,
         cache: false,
       },
+      build: {
+        command: "spacetime build --module-path apps/server",
+        cache: { output: ["apps/server/dist/**"] },
+      },
       ready: { command: "vp check && vp run -r test && vp run -r build" },
       "stdb:start": { command: startServer, cache: false },
       "stdb:publish": { command: "spacetime publish --yes", cache: false },
