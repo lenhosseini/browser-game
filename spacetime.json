@@ -1,0 +1,7 @@
+{
+  "database": "browser-game",
+  "module-path": "./apps/server",
+  "server": "local",
+  "generate": [{ "language": "typescript", "out-dir": "./packages/bindings/src" }],
+  "dev": { "run": "vp run @game/client#dev" }
+}
