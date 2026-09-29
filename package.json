@@ -4,11 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vp -C apps/client dev",
-    "ready": "vp check && vp run -r test && vp run -r build",
-    "stdb:start": "vp run @game/server#stdb:start",
-    "stdb:publish": "vp run @game/server#stdb:publish",
-    "stdb:generate": "vp run @game/server#stdb:generate",
     "prepare": "vp config"
   },
   "devDependencies": {

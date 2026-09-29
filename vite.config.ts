@@ -27,6 +27,12 @@ export default defineConfig({
   },
   test: { projects: ["apps/*", "packages/*"] },
   run: {
-    cache: true,
+    tasks: {
+      dev: { command: "vp run @game/client#dev", cache: false },
+      ready: { command: "vp check && vp run -r test && vp run -r build" },
+      "stdb:start": { command: "vp run @game/server#stdb:start", cache: false },
+      "stdb:publish": { command: "vp run @game/server#stdb:publish", cache: false },
+      "stdb:generate": { command: "vp run @game/server#stdb:generate" },
+    },
   },
 });
